@@ -31,6 +31,12 @@ canvas {
     color: white;
     font-size: 2em;
 }
+#manna {
+    float: right;
+    color: blue;
+    font-size: 2em;
+	margin-right: 120px;
+}
 
 .key {
     color: #aaffdd;

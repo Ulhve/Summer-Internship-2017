@@ -64,14 +64,20 @@ var megaliths = [
                   Math.random() * (canvas.height - 50)],
 		sprite: new Sprite('img/sprites_02.png', [0, 275], [54, 42])},   
 	];
+var manna = [];
 
 var lastFire = Date.now();
 var gameTime = 0;
 var isGameOver;
 var terrainPattern;
+var lastMannaAdd = Date.now();
+var mannaAddPeriod = 3000;
+var mannaMaxCount = 10;
 
 var score = 0;
 var scoreEl = document.getElementById('score');
+var countManna = 0;
+var countMannaEl = document.getElementById('manna');
 
 // Speed in pixels per second
 var playerSpeed = 200;
@@ -97,8 +103,18 @@ function update(dt) {
     }
 
     checkCollisions();
+	
+	if ((Date.now() - lastMannaAdd > mannaAddPeriod) && (manna.length < mannaMaxCount)) {
+		manna.push({
+			pos: [Math.random() * (canvas.width - 50),
+				Math.random() * (canvas.height - 50)],
+			sprite: new Sprite('img/sprites_02.png', [4, 320], [52, 56], 6, [0, 1, 1, 1, 0])
+		});
+		lastMannaAdd = Date.now();
+    }
 
     scoreEl.innerHTML = score;
+	countMannaEl.innerHTML = countManna;
 };
 
 function handleInput(dt) {
@@ -119,14 +135,14 @@ function handleInput(dt) {
     if(input.isDown('LEFT') || input.isDown('a')) {
         player.pos[0] -= playerSpeed * dt;
 		if (isCollisionMegaliths(player)) {
-			player.pos[1] += playerSpeed * dt;
+			player.pos[0] += playerSpeed * dt;
 		}
     }
 
     if(input.isDown('RIGHT') || input.isDown('d')) {
         player.pos[0] += playerSpeed * dt;
 		if (isCollisionMegaliths(player)) {
-			player.pos[1] -= playerSpeed * dt;
+			player.pos[0] -= playerSpeed * dt;
 		}
     }
 
@@ -202,6 +218,10 @@ function updateEntities(dt) {
             explosions.splice(i, 1);
             i--;
         }
+    }
+	
+	for(var i=0; i<manna.length; i++) {
+        manna[i].sprite.update(dt);
     }
 }
 
@@ -287,6 +307,15 @@ function checkCollisions() {
             gameOver();
         }
     }
+	
+	for(var i=0; i<manna.length; i++) {
+		
+        if(boxCollides(manna[i].pos, manna[i].sprite.size, player.pos, player.sprite.size)) {
+            countManna++;
+            manna.splice(i, 1);
+            i--;
+        }
+    }
 }
 
 function checkPlayerBounds() {
@@ -320,6 +349,7 @@ function render() {
     renderEntities(enemies);
     renderEntities(explosions);
 	renderEntities(megaliths);
+	renderEntities(manna);
 };
 
 function renderEntities(list) {
@@ -349,9 +379,12 @@ function reset() {
     isGameOver = false;
     gameTime = 0;
     score = 0;
+	countManna = 0;
+	countTime = 0;
 
     enemies = [];
     bullets = [];
+	manna = [];
 
     player.pos = [50, canvas.height / 2];
 };
