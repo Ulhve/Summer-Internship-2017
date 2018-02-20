@@ -190,24 +190,47 @@ function updateEntities(dt) {
     }
 
     // Update all the enemies
-    for(var i=0; i<enemies.length; i++) {
-        if(isCollisionMegaliths(enemies[i])) {
-			
-			addExplosion(enemies[i].pos);
-			enemies.splice(i, 1);
-			i--;
-			break;
-		}
-        
-		enemies[i].pos[0] -= enemySpeed * dt;
-        enemies[i].sprite.update(dt);
+		for(var i=0; i<enemies.length; i++) {
+			var isCollMegalith = false;
+			for (var k = 0; k < megaliths.length; k++) {
+				var posMegalith = megaliths[k].pos;
+				var sizeMegalith = megaliths[k].sprite.size;
 
-        // Remove if offscreen
-        if(enemies[i].pos[0] + enemies[i].sprite.size[0] < 0) {
-            enemies.splice(i, 1);
-            i--;
-        }
-    }
+				for (var j = 0; j < enemies.length; j++) {
+					var posEnemy = enemies[j].pos;
+					var sizeEnemy = enemies[j].sprite.size;
+
+					if (boxCollides(posMegalith, sizeMegalith, posEnemy, sizeEnemy)) {
+						isCollMegalith = true;
+						enemies.splice(j, 1);
+						var yMegalith = posMegalith[1] + sizeMegalith[1] / 2;
+						var yEnemy = posEnemy[1] + sizeEnemy[1] / 2;
+						if (yEnemy <= yMegalith) {
+							enemies.push({
+								pos: [posEnemy[0], posEnemy[1] - sizeMegalith[1]/10],
+								sprite: new Sprite('img/sprites_02.png', [0, 78], [80, 39], 6, [0, 1, 2, 3, 2, 1])
+							});
+						}else{
+							enemies.push({
+								pos: [posEnemy[0], posEnemy[1] + sizeMegalith[1]/10],
+								sprite: new Sprite('img/sprites_02.png', [0, 78], [80, 39], 6, [0, 1, 2, 3, 2, 1])
+							});
+						}
+						break
+					}
+				}
+			}
+			if (!isCollMegalith){
+				enemies[i].pos[0] -= enemySpeed * dt;
+				enemies[i].sprite.update(dt);
+			}
+
+			// Remove if offscreen
+			if(enemies[i].pos[0] + enemies[i].sprite.size[0] < 0) {
+				enemies.splice(i, 1);
+				i--;
+			}
+		}
 
     // Update all the explosions
     for(var i=0; i<explosions.length; i++) {
