@@ -204,15 +204,9 @@ function updateEntities(dt) {
 						var yMegalith = posMegalith[1] + sizeMegalith[1] / 2;
 						var yEnemy = posEnemy[1] + sizeEnemy[1] / 2;
 						if (yEnemy <= yMegalith) {
-							enemies[i] = {
-								pos: [posEnemy[0], posEnemy[1] - sizeMegalith[1]/10],
-								sprite: new Sprite('img/sprites_02.png', [0, 78], [80, 39], 6, [0, 1, 2, 3, 2, 1])
-							};
+							enemies[i].pos[1] = posEnemy[1] - sizeMegalith[1]/10;
 						}else{
-							enemies[i] = {
-								pos: [posEnemy[0], posEnemy[1] + sizeMegalith[1]/10],
-								sprite: new Sprite('img/sprites_02.png', [0, 78], [80, 39], 6, [0, 1, 2, 3, 2, 1])
-							};
+							enemies[i].pos[1] = posEnemy[1] + sizeMegalith[1]/10;
 						}
 						break
 					}
