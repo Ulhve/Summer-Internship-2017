@@ -1,0 +1,125 @@
+﻿<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{41CDD36F-3E9D-47B2-9BE7-3858A7354A08}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <NoStandardLibraries>false</NoStandardLibraries>
+    <AssemblyName>WindowsApplication</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>tanks</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\River.cs" />
+    <Compile Include="Views\IView.cs" />
+    <Compile Include="Views\FormState.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\FormState.Designer.cs">
+      <DependentUpon>FormState.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Apple.cs" />
+    <Compile Include="Other\Direction.cs" />
+    <Compile Include="Models\Bullet.cs" />
+    <Compile Include="Models\DynamicMapObject.cs" />
+    <Compile Include="Models\Game.cs" />
+    <Compile Include="Views\FormGame.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\FormGame.Designer.cs">
+      <DependentUpon>FormGame.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MapObject.cs" />
+    <Compile Include="Controllers\Controller.cs" />
+    <Compile Include="Models\Model.cs" />
+    <Compile Include="Other\PositionChangedArgs.cs" />
+    <Compile Include="Views\RiverView.cs" />
+    <Compile Include="Views\View.cs" />
+    <Compile Include="Models\Kolobok.cs" />
+    <Compile Include="Controllers\PackmanController.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs" />
+    <Compile Include="Properties\Settings.Designer.cs" />
+    <Compile Include="Models\Tank.cs" />
+    <Compile Include="Views\AppleView.cs" />
+    <Compile Include="Views\BulletView.cs" />
+    <Compile Include="Views\DynamicMapObjectView.cs" />
+    <Compile Include="Views\MapObjectView.cs" />
+    <Compile Include="Views\KolobokView.cs" />
+    <Compile Include="Views\TankView.cs" />
+    <Compile Include="Views\WallView.cs" />
+    <Compile Include="Models\Wall.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\FormState.resx">
+      <DependentUpon>FormState.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\FormGame.resx">
+      <DependentUpon>FormGame.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".vs\tanks\v15\.suo" />
+    <None Include=".vs\tanks\v15\Server\sqlite3\db.lock" />
+    <None Include=".vs\tanks\v15\Server\sqlite3\storage.ide" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Apple.bmp" />
+    <None Include="Resources\Bullet.bmp" />
+    <None Include="Resources\PackMan.bmp" />
+    <None Include="Resources\PackManD.bmp" />
+    <None Include="Resources\PackManL.bmp" />
+    <None Include="Resources\PackManR.bmp" />
+    <None Include="Resources\PackManU.bmp" />
+    <None Include="Resources\TankD.bmp" />
+    <None Include="Resources\TankL.bmp" />
+    <None Include="Resources\TankR.bmp" />
+    <None Include="Resources\TankU.bmp" />
+    <None Include="Resources\Wall.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\River.bmp" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
+  <ProjectExtensions>
+    <VisualStudio AllowExistingFolder="true" />
+  </ProjectExtensions>
+</Project>
